@@ -25,48 +25,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CatApp() {
-    val viewModel: CatViewModel = viewModel()
-    val catImages = viewModel.catImages.collectAsState()
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Cat Images") }
-            )
-        }
-    ) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            items(catImages.value) { catImage ->
-                CatImageItem(url = catImage.url)
-            }
-        }
-    }
-}
-
-@Composable
-fun CatImageItem(url: String) {
-    val painter = rememberImagePainter(url)
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .height(200.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            painter = painter,
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
 
 
 
