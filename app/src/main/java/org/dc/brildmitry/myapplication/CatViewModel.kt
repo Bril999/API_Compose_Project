@@ -12,23 +12,29 @@ class CatViewModel : ViewModel() {
     private val _catImages = MutableStateFlow<List<CatImageResponse>>(emptyList())
     val catImages: StateFlow<List<CatImageResponse>> = _catImages
 
-    private val _isLoading = MutableStateFlow(false)  // Состояние загрузки
+    private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
+
+    private val _hasError = MutableStateFlow(false)
+    val hasError: StateFlow<Boolean> = _hasError
 
     init {
         fetchCatImages()
     }
 
-    private fun fetchCatImages() {
+    // Функция для загрузки изображений
+    fun fetchCatImages(limit: Int = 50) {
         viewModelScope.launch {
-            _isLoading.value = true  // Начинаем загрузку
+            _isLoading.value = true
+            _hasError.value = false  // сбрасываем ошибку
             try {
-                val images = RetrofitClient.instance.getCatImages(limit = 10)
+                val images = RetrofitClient.instance.getCatImages(limit = limit)
                 _catImages.value = images
             } catch (e: Exception) {
                 _catImages.value = emptyList()
+                _hasError.value = true // если произошла ошибка, показываем заглушку
             } finally {
-                _isLoading.value = false  // Завершаем загрузку
+                _isLoading.value = false
             }
         }
     }
