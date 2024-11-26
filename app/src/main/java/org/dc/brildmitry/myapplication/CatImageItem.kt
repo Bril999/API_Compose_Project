@@ -106,7 +106,7 @@ fun CatApp() {
 
             else -> {
                 LazyVerticalGrid(
-                    columns = GridCells.Adaptive(minSize = 120.dp),
+                    columns = GridCells.Adaptive(minSize = 130.dp),
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues)
@@ -127,19 +127,20 @@ fun CatImageItem(url: String) {
 
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(1.dp)
-            .aspectRatio(1f),
+            .padding(4.dp)
+            .aspectRatio(1f)
+            .aspectRatio(0.5f)
+            .aspectRatio(0.5f)
+            .aspectRatio(0.5f)
+            .aspectRatio(0.5f),
         contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painter,
             contentDescription = null,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
         )
     }
 }
-
-
-
 
